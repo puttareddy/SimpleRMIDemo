@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  rmi-service:
+    build:
+      context: .
+      target: server
+    ports:
+      - "1099:1099"
+    networks:
+      - app-network
+
+  rmi-client:
+    build:
+      context: .
+      target: client
+    networks:
+      - app-network
+    depends_on:
+      - rmi-service
+
+networks:
+  app-network:
+    driver: bridge
